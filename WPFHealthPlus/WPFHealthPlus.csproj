@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\DiaryIcon.png" />
+    <None Remove="Icons\MoreIcon.png" />
+    <None Remove="Icons\ProfileIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="HealthPlusApiService">
+      <HintPath>..\..\..\HealthPlusProject-master\HealthPlusProject-master\HealthPlusApiService\bin\Debug\net8.0\HealthPlusApiService.dll</HintPath>
+    </Reference>
+    <Reference Include="Model">
+      <HintPath>..\..\..\HealthPlusProject-master\HealthPlusProject-master\HealthPlusProject\bin\Debug\net7.0\Model.dll</HintPath>
+    </Reference>
+    <Reference Include="ViewModel">
+      <HintPath>..\..\..\HealthPlusProject-master\HealthPlusProject-master\ViewModel\bin\Debug\net7.0\ViewModel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\DiaryIcon.png" />
+    <Resource Include="Icons\MoreIcon.png" />
+    <Resource Include="Icons\ProfileIcon.png" />
+  </ItemGroup>
+
+</Project>

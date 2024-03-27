@@ -1,0 +1,45 @@
+﻿<Page x:Class="WPFHealthPlus.HubPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFHealthPlus"
+      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesignxaml.net/winfx/themes"
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="HubPage">
+
+    <Grid>
+      
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="2,0" EndPoint="0.5,1">
+                <GradientStop Color="#FF113167" Offset="0.0"/>
+                <GradientStop Color="#FF123077" Offset="0.2"/>
+                <GradientStop Color="#FF232331" Offset="0.6"/>
+                <GradientStop Color="#FF2A2665" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <Image Source="Icons/LowerPanel.png"/>
+        <Button Name="ProfileBtn" Width="175" Height="125" Click="ProfileBtn_Click" VerticalAlignment="Bottom" Margin="500 0 0 50">
+            <Button.Background>
+                <ImageBrush ImageSource="Icons/ProfileIcon.png"/>
+            </Button.Background>
+        </Button>
+        <Button Name="DiaryBtn" Width="200" Height="200" Click="DiaryBtn_Click" VerticalAlignment="Bottom" Margin="0 0 0 25">
+            <Button.Background>
+                <ImageBrush ImageSource="Icons/DiaryIcon.png"/>
+            </Button.Background>
+        </Button>
+        <Button Name="MoreBtn" Width="175" Height="175" Click="MoreBtn_Click" VerticalAlignment="Bottom" Margin="-500 0 0 25">
+            <Button.Background>
+                <ImageBrush ImageSource="Icons/MoreIcon.png"/>
+            </Button.Background>
+        </Button>
+
+        <ProgressBar
+  Height="40" Width="800"
+  Value="25" />
+
+    </Grid>
+</Page>

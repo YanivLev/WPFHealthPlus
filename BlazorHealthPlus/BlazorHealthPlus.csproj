@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="HealthPlusApiService">
+      <HintPath>..\HealthPlusBlazor\bin\Debug\net7.0\HealthPlusApiService.dll</HintPath>
+    </Reference>
+    <Reference Include="Model">
+      <HintPath>..\HealthPlusBlazor\bin\Debug\net7.0\Model.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

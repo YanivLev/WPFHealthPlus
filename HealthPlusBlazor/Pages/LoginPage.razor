@@ -1,0 +1,44 @@
+﻿@inject NavigationManager nav
+@inject ApiService api
+@page "/LoginPage"
+<PageTitle>דף כניסה</PageTitle>
+<h3 class="display-4">דף הכניסה</h3>
+<div class="mb-3">
+    <label for="LoginForm" class="form-label">: שם המשתמש</label>
+        <input type="text" class="form-control" id="LoginForm" placeholder="הקלד את שם המשתמש" @bind="usernameTxt" style="width: 20em;"/>
+</div>
+
+<div class="row g-3 align-items-center">
+    <div class="col-auto"
+        <span id="LoginForm" class="form-text">
+            המייל חייב להיות תקין
+        </span>
+    </div>
+  <div class="col-auto">
+      <input type="password" id="LoginForm" class="form-control" aria-describedby="gmailHelpInLine" @bind="gmailTxt">
+  </div>
+    <div class="col-auto">
+        <label for="LoginForm" class="col-form-label"> :המייל</label>
+    </div>
+</div>
+
+<button @onclick="LoginAction" class="btn btn-primary">כניסה</button>
+
+@code {
+    private string usernameTxt;
+    private string gmailTxt;
+
+    private async Task LoginAction()
+    {
+        UserList ulist = await api.GetUserList();
+        User user = ulist.Find(x => x.Username.Equals(usernameTxt) && x.Gmail.Equals(gmailTxt));
+        if(user!=null)
+        {
+            nav.NavigateTo("HomePage");
+        }
+        else
+        {
+            
+        }
+    }
+}

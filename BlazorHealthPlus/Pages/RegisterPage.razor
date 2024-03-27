@@ -1,0 +1,193 @@
+﻿@page "/"
+@inject NavigationManager nav
+@using System.Text.RegularExpressions;
+@using Microsoft.JSInterop;
+
+    <PageTitle>Register</PageTitle>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #FF113167 0%, #FF123077 20%, #FF232331 60%, #FF2A2665 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 45px;
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 80px;
+            font-weight: bold;
+            text-align: center;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+            .input-group label {
+                margin-right: 10px;
+                font-size: 40px;
+                color: black;
+            }
+            
+            .input-group input,
+            .input-group select {
+                font-size: 40px;
+                width: 1000px;
+                height: 80px;
+                margin-right: 30px;
+            }
+
+        .button {
+            background-color: #FF353DB5;
+            color: white;
+            border: none;
+            font-size: 40px;
+            width: 300px;
+            height: 80px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .button:hover {
+                background-color: #45a049;
+            }
+
+            .gender{
+                width:150px;
+                height: 25px;
+                margin-bottom:2px;
+            }
+        .error-message {
+            text-align: center;
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .login-link {
+            font-size: 30px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+
+<body>
+    <div class="container">
+        <h1 class="title">Register</h1>
+        <div class="input-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="username" @bind="username" placeholder="Enter your username">
+        </div>
+        <div class="input-group">
+            <label for="gmail">Gmail:</label>
+            <input type="email" id="gmail" name="gmail" class="gmail" @bind="gmail" placeholder="Enter your email">
+        </div>
+        <div class="input-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" @bind="phone" class="phoneNumber" placeholder="Enter your phone number">
+        </div>
+        <div class="input-group">
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" class="gender" @onchange="changeGender">
+                @if (genderlist != null)
+                {
+                    @foreach(Gender g in genderlist)
+                    {
+                        <option value="@g.Id">@g.NameGender</option>
+                    }
+                }
+            </select>
+        </div>
+        <button class="button" @onclick="Register">Register</button>
+        <p class="login-link">Have an account? <a href="LoginPage">Login</a></p>
+
+        @if(isCorrect)
+        {
+            <big>Error</big>
+        }
+    </div>
+
+   
+</body>
+
+@code{
+    [Inject]
+    private IJSRuntime jsr { get; set; }
+    private string username;
+    private string phone;
+    private string gmail;
+    private int gender;
+    private bool isManager;
+    private bool isCorrect;
+    private Regex nameRegex;
+    private Regex phoneNumberRegex;
+    private Regex gmailRegex;
+    private List<Gender> genderlist;
+
+    private async void Register()
+    {
+
+
+        if (!IsValidUsername(username))
+        {
+            isCorrect = true;
+            return;
+        }
+
+        if (!phoneNumberRegex.IsMatch(phone))
+        {
+            isCorrect = true;
+            return;
+        }
+
+        if (!gmailRegex.IsMatch(gmail))
+        {
+            isCorrect = true;
+            return;
+        }
+
+        User registrationResult = await ApiServiceBlazor.api.Register(username,phone,gmail,gender);
+
+        if (registrationResult != null)
+            nav.NavigateTo("/LoginPage");
+        else
+        {
+            isCorrect = true;
+        }
+
+
+    }
+    private bool IsValidUsername(string username)
+    {
+        return nameRegex.IsMatch(username);
+    }
+
+    private void changeGender(ChangeEventArgs e)
+    {
+        gender = int.Parse(e.Value.ToString());
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        nameRegex = new Regex(@"^[a-zA-Z ]{3,20}$");
+        phoneNumberRegex = new Regex(@"^0[0-9]{9}$");
+        gmailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@gmail\.com$");
+        isCorrect = false;
+        genderlist = await ApiServiceBlazor.api.GetGenderList();
+        gender = 1;
+    }
+}
