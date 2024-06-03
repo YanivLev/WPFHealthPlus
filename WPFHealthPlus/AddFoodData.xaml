@@ -1,0 +1,84 @@
+﻿<Page x:Class="WPFHealthPlus.AddFoodData"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFHealthPlus"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="AddFoodData">
+
+    <Grid>
+        <local:BackgroundUC/>
+        <local:UserControlNavigation VerticalAlignment="Top" Height="50"/>
+        <Border Background="White" CornerRadius="45" Margin="108,80,108,38" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Add Food To Database" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" FontWeight="Bold" Foreground="Black"/>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="62" Width="1004">
+                    <TextBlock Text="Food:" Margin="10" Foreground="Black" FontSize="25" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="FoodIdComboBox" FontSize="15" VerticalAlignment="Center" Width="792" Height="40" Margin="30"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="986" Margin="10,70,0,0" Grid.RowSpan="2">
+                    <TextBlock Text="Calories:" Margin="10" Foreground="Black" FontSize="25" VerticalAlignment="Center"/>
+                    <TextBox x:Name="CaloriesTextBox" Width="876"  Height="50" FontSize="15" Margin="10"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="986" Margin="10,39,0,0" Height="66" Grid.RowSpan="2">
+                    <TextBlock Text="Protein:" Margin="10" Foreground="Black" FontSize="25" VerticalAlignment="Center"/>
+                    <TextBox x:Name="ProteinTextBox" Width="876"  Height="61" FontSize="15" Margin="10"/>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="986" Margin="10,35,0,0" Grid.RowSpan="2" Height="61">
+                    <TextBlock Text="Carbs:" Margin="10" Foreground="Black" FontSize="25" VerticalAlignment="Center"/>
+                    <TextBox x:Name="CarbsTextBox" Width="876"  Height="45" FontSize="15" Margin="10"/>
+                </StackPanel>
+                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="986" Margin="10,17,0,0" Grid.RowSpan="2" Height="74">
+                    <TextBlock Text="Fibers:" Margin="10" Foreground="Black" FontSize="25" VerticalAlignment="Center"/>
+                    <TextBox x:Name="FibersTextBox" Width="876"  Height="47" FontSize="15" Margin="10"/>
+                </StackPanel>
+                <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="484" Margin="11,10,0,0" Grid.RowSpan="2" Height="63">
+                    <TextBlock Text="Fat:" Margin="10" Foreground="Black" FontSize="25" VerticalAlignment="Center"/>
+                    <TextBox x:Name="FatTextBox" Width="401"  Height="39" FontSize="15" Margin="10"/>
+                </StackPanel>
+                <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="485" Margin="10,14,0,0" Height="62">
+                    <TextBlock Text="Sugar:" Margin="10" Foreground="Black" FontSize="25" VerticalAlignment="Center"/>
+                    <TextBox x:Name="SugarTextBox" Width="383"  Height="38" FontSize="15" Margin="10"/>
+                </StackPanel>
+                <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Width="504" Margin="500 0 0 0" Height="44">
+                    <TextBlock Text="Cholesterol:" Foreground="Black" FontSize="25"/>
+                    <TextBox x:Name="CholesterolTextBox" Width="876"  Height="45" FontSize="15"/>
+                </StackPanel>
+                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+
+                <Button Content="Add Food"  FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="185" Height="89" Margin="811,0,0,0" Click="AddButton_Click" Grid.RowSpan="3">
+
+                    <Button.Style>
+                        <Style TargetType="Button" >
+                            <Setter Property="Background"   Value="#FF353DB5"/>
+                            <Setter Property="Foreground" Value="White"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#45a049"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

@@ -1,0 +1,146 @@
+﻿@page "/"
+@inject NavigationManager nav
+<PageTitle>Login</PageTitle>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #FF113167 0%, #FF123077 20%, #FF232331 60%, #FF2A2665 100%);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        background: #fff;
+        border-radius: 45px;
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 80px;
+        font-weight: bold;
+        text-align: center;
+        color: black;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+        .input-group label {
+            margin-right: 10px;
+            font-size: 40px;
+            color: black;
+        }
+
+        .input-group input {
+            font-size: 40px;
+            width: 1000px;
+            height: 80px;
+            margin-right: 30px;
+        }
+
+    .button {
+        background-color: #FF353DB5;
+        color: white;
+        border: none;
+        font-size: 40px;
+        width: 300px;
+        height: 80px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+    .error-message {
+        text-align: center;
+        color: red;
+        margin-bottom: 10px;
+    }
+
+    .register-link {
+        font-size: 30px;
+        text-align: center;
+        margin-top: 20px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1 class="title">Login</h1>
+        <div class="input-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="username" @bind="username" placeholder="Enter your username">
+        </div>
+        <div class="input-group">
+            <label for="gmail">Gmail:</label>
+            <input type="email" id="gmail" name="gmail" class="gmail" @bind="gmail" placeholder="Enter your email">
+        </div>
+        <button class="button" @onclick="Login">Login</button>
+        <div class="register-link">
+            <span>I don't have an account. </span>
+            <a href="/RegisterPage">Register</a>
+        </div>
+    </div>
+    @if (isCorrect)
+    {
+        <div class="alert alert-danger" role="alert">
+            Invalid username or password. Please try again.
+        </div>
+    }
+
+</body>
+
+@code {
+    [Parameter]
+    public int userId { get; set; }
+
+
+    public static User loggedInUser { get; set; }
+    private string username;
+    private string gmail;
+    private bool isCorrect;
+    private UserList userList;
+
+    private async void Login()
+    {
+        User user = await SpecificPerson(username, gmail);
+
+        if (user != null)
+        {
+            loggedInUser = user;
+            // Successful login, navigate to HomePage.xaml with the person parameter
+            Home.loggedInUser = loggedInUser;
+            nav.NavigateTo($"/HomePage/{user.Id}");
+        }
+        else
+            isCorrect = true;
+
+    }
+
+    public async Task<User> SpecificPerson(string username, string gmail)
+    {
+        userList = await ApiServiceBlazor.api.GetUserList();
+        return userList.Find(x => x.Username == username && x.Gmail == gmail);
+    }
+
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        isCorrect = false;
+        // personList lst = await
+    }
+
+
+}

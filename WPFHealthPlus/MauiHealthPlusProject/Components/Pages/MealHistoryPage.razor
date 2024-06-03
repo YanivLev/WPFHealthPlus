@@ -1,0 +1,66 @@
+﻿@page "/mealHistory/{userId:int}"
+@page "/mealHistory"
+@inject NavigationManager nav
+@using Microsoft.JSInterop;
+
+<h3 class="text-center display-2">meal List</h3>
+@if (mealUser != null && mealUser.Any())
+{
+    <table class="table table-striped table-hover" style="direction:ltr; text-align:center;">
+        <thead>
+            <tr>
+                <th>Meal id</th>
+                <th>Username</th>
+                <th>Meal date</th>
+                <th>Meal name</th>
+                <th>Food</th>
+                <th>amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Meal meal in mealUser)
+            {
+                <tr>
+                    <td>@meal.Id</td>
+                    <td>@meal.User.Username</td>
+                    <td>@meal.Mealdate.ToShortDateString()</td>
+                    <td>@meal.Mealname.Mealname</td>
+                    <td>@meal.Food.Foodname</td>
+                    <td>@meal.Amount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button class="button" @onclick="Return">Home Page</button>
+}
+
+
+@code {
+    [Inject]
+    private IJSRuntime jsr { get; set; }
+    [Parameter]
+    public int userId { get; set; }
+
+    private MealList mealUser;
+
+    //נועדה לאתחל את רשימת הארוחות של המשתמש המחוברעל ידי קריאה לשירות ה לקבלת כל הארוחות, ולאחר מכן סינון הארוחות השייכות למשתמש המחובר והוספתן לרשימת הארוחות של המשתמש המחובר.
+    protected override async Task OnInitializedAsync()
+    {
+        mealUser = new MealList();
+
+        MealList meals = await ApiServiceBlazor.api.GetMealList();
+        foreach (Meal meal in meals)
+        {
+            if (meal.User.Id == userId)
+            {
+                mealUser.Add(meal);
+            }
+        }
+    }
+
+    //נועדה לניווט חזרה לדף הבית של המשתמש
+    private async void Return()
+    {
+        nav.NavigateTo($"/HomePage/{userId}");
+    }
+}
